@@ -3,7 +3,7 @@ package com.example.prototipe.entities.enums;
 public enum Role {
     STUDENT((short) 1),
     HEADMAN((short) 2),
-    CAHIRMAN((short) 3);
+    CHAIRMAN((short) 3);
 
     private short value;
 

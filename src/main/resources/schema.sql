@@ -9,10 +9,10 @@ CREATE TABLE IF NOT EXISTS users(
   role INT NOT NULL,
   course_num INT NOT NULL,
   facul_num INT NOT NULL,
-  start_ban DATE,
-  end_ban DATE,
-  summary_help INT,
-  help_for_last_month INT
+  start_ban DATE DEFAULT NULL,
+  end_ban DATE DEFAULT NULL,
+  summary_help INT DEFAULT NULL,
+  help_for_last_month INT DEFAULT NULL
 );
 
 COMMENT ON TABLE users IS 'Table containing the application user''s data';
@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS request_from_user(
   hash_file VARCHAR(100) NOT NULL,
   sign_hash VARCHAR(100) NOT NULL,
   close_key BIGINT  REFERENCES key(close_key),
-  status_of_accept INT NOT NULL,
+  status_of_request INT NOT NULL,
   reason_of_request INT NOT NULL,
   time_of_requesting DATE NOT NULL
 );
@@ -81,20 +81,33 @@ COMMENT ON COLUMN request_from_user.reason_of_request IS 'One of the most popula
 
 
 
-CREATE TABLE IF NOT EXISTS headman_request(
+CREATE TABLE IF NOT EXISTS time_of_requesting(
+  start_of_submission DATE NOT NULL,
+  end_of_submission DATE NOT NULL,
+  headman_id BIGINT REFERENCES users(id) ON DELETE CASCADE
+);
+
+COMMENT ON TABLE time_of_requesting IS 'Time, when students can submit application';
+COMMENT ON COLUMN time_of_requesting.start_of_submission IS 'Start of submission application';
+COMMENT ON COLUMN time_of_requesting.end_of_submission IS 'End of submission application';
+COMMENT ON COLUMN time_of_requesting.start_of_submission IS 'Headman, who collect application in this time';
+
+
+
+CREATE TABLE IF NOT EXISTS headmans_request(
   request_id BIGINT PRIMARY KEY,
   file BYTEA NOT NULL,
   user_id BIGINT REFERENCES users(id),
-  time_of_requesting DATE
+  time_of_requesting DATE NOT NULL
 );
 
-CREATE SEQUENCE IF NOT EXISTS headman_request_id_sequence START WITH 1 MINVALUE 1 INCREMENT BY 1;
-COMMENT ON SEQUENCE headman_request_id_sequence IS 'Sequence for identifiers if table ''headman_request''';
+CREATE SEQUENCE IF NOT EXISTS headmans_request_id_sequence START WITH 1 MINVALUE 1 INCREMENT BY 1;
+COMMENT ON SEQUENCE headmans_request_id_sequence IS 'Sequence for identifiers if table ''headman_request''';
 
-COMMENT ON TABLE headman_request IS 'Table consists from requests, which sends from headman';
-COMMENT ON COLUMN headman_request.request_id IS 'Id of request''s from headman';
-COMMENT ON COLUMN headman_request.file IS 'File, which was sending by headman';
-COMMENT ON COLUMN headman_request.file IS 'Time of sending request';
+COMMENT ON TABLE headmans_request IS 'Table consists from requests, which sends from headman';
+COMMENT ON COLUMN headmans_request.request_id IS 'Id of request''s from headman';
+COMMENT ON COLUMN headmans_request.file IS 'File, which was sending by headman';
+COMMENT ON COLUMN headmans_request.file IS 'Time of sending request';
 
 
 CREATE TABLE IF NOT EXISTS chairman_requests(
