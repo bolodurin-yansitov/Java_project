@@ -6,7 +6,6 @@ import com.example.prototipe.entities.enums.StatusOfRequest;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.springframework.data.annotation.Id;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -14,15 +13,16 @@ import java.util.Date;
 
 @Entity
 @Table(name = "REQUEST_FROM_USER")
-@ToString
+@ToString(exclude = {"key", "user", "headman"})
 public class RequestFromUser {
     @Id
     @Column(name = "REQUEST_ID")
     @Getter
     @Setter
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "request_from_user_seq_gen")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,
+            generator = "request_from_user_seq_gen")
     @SequenceGenerator(name = "request_from_user_seq_gen", sequenceName =
-            "request_from_user_id_sequence")
+            "request_from_user_id_sequence", allocationSize = 1)
     private Long requestId;
 
     @Column(name = "FILE")
@@ -56,7 +56,7 @@ public class RequestFromUser {
     private int closeKey;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "CLOSE_KEY")
+    @JoinColumn(name = "CLOSE_KEY", insertable = false, updatable = false)
     @Getter
     @Setter
     private Key key;
@@ -87,4 +87,16 @@ public class RequestFromUser {
     @Getter
     @Setter
     private Date timeOfRequesting;
+
+    @ManyToOne(fetch = FetchType.LAZY,
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @Getter
+    @Setter
+    private Users user;
+
+    @ManyToOne(fetch = FetchType.LAZY,
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @Getter
+    @Setter
+    private Users headman;
 }

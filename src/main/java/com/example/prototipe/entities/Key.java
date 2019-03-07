@@ -10,8 +10,9 @@ import java.util.Date;
 
 @Entity
 @Table(name = "KEY")
-@ToString
+@ToString(exclude = "user")
 public class Key {
+    @Id
     @Column(name = "CLOSE_KEY")
     @Getter
     @Setter
@@ -31,7 +32,7 @@ public class Key {
     private Long userId;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "USER_ID")
+    @JoinColumn(name = "USER_ID", insertable = false, updatable = false)
     @Getter
     @Setter
     private Users user;

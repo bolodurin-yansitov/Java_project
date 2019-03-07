@@ -10,8 +10,9 @@ import java.util.Date;
 
 @Entity
 @Table(name = "TIME_OF_REQUESTING")
-@ToString
+@ToString(exclude = "user")
 public class TimeOfRequesting {
+    @Id
     @Column(name = "START_OF_SUBMISSION")
     @Getter
     @Setter
@@ -24,5 +25,15 @@ public class TimeOfRequesting {
     @NotNull
     private Date endOfSubmission;
 
+    @Column(name = "HEADMAN_ID")
+    @Getter
+    @Setter
+    @NotNull
+    private Long headmanId;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "HEADMAN_ID", insertable = false, updatable = false)
+    @Getter
+    @Setter
+    private Users user;
 }

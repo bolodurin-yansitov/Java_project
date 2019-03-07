@@ -82,7 +82,7 @@ COMMENT ON COLUMN request_from_user.reason_of_request IS 'One of the most popula
 
 
 CREATE TABLE IF NOT EXISTS time_of_requesting(
-  start_of_submission DATE NOT NULL,
+  start_of_submission DATE NOT NULL PRIMARY KEY,
   end_of_submission DATE NOT NULL,
   headman_id BIGINT REFERENCES users(id) ON DELETE CASCADE
 );
@@ -97,7 +97,7 @@ COMMENT ON COLUMN time_of_requesting.start_of_submission IS 'Headman, who collec
 CREATE TABLE IF NOT EXISTS headmans_request(
   request_id BIGINT PRIMARY KEY,
   file BYTEA NOT NULL,
-  user_id BIGINT REFERENCES users(id),
+  headman_id BIGINT REFERENCES users(id),
   time_of_requesting DATE NOT NULL
 );
 

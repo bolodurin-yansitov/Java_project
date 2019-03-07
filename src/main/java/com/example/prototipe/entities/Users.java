@@ -4,7 +4,6 @@ import com.example.prototipe.entities.enums.Role;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.springframework.data.annotation.Id;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -20,8 +19,10 @@ public class Users {
     @Column(name = "ID")
     @Getter
     @Setter
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_seq_gen")
-    @SequenceGenerator(name = "user_seq_gen", sequenceName = "user_id_sequence")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,
+            generator = "user_seq_gen")
+    @SequenceGenerator(name = "user_seq_gen", sequenceName =
+            "user_id_sequence", allocationSize = 1)
     private Long id;
 
     @Column(name = "EMAIL")
@@ -123,10 +124,28 @@ public class Users {
     @Setter
     private Key key;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "USERS_REQUESTS",
+            joinColumns = {@JoinColumn(name = "request_id")},
+            inverseJoinColumns = {@JoinColumn(name = "user_id")})
     @Getter
     @Setter
     private List<RequestFromUser> requestsFromUser;
 
+    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "HEADMAN_REQUEST",
+            joinColumns = {@JoinColumn(name = "request_id")},
+            inverseJoinColumns = {@JoinColumn(name = "user_id")})
+    @Getter
+    @Setter
+    private List<RequestFromUser> headmanRequest;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "CHAIRMAN_REQUEST",
+            joinColumns = {@JoinColumn(name = "request_id")},
+            inverseJoinColumns = {@JoinColumn(name = "user_id")})
+    @Getter
+    @Setter
+    private List<HeadmansRequest> chairmanRequest;
 
 }
