@@ -43,7 +43,7 @@ public class RequestFromUser {
     @NotNull
     private String hashFile;
 
-    @Column(name = "EMAIL")
+    @Column(name = "SIGN_HASH")
     @Getter
     @Setter
     @NotNull
