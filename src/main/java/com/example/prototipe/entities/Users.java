@@ -83,7 +83,7 @@ public class Users {
     @Getter
     @Setter
     @NotNull
-    private String faculNum;
+    private int faculNum;
 
     @Column(name = "START_BAN")
     @Getter
@@ -100,13 +100,11 @@ public class Users {
     @Column(name = "SUMMARY_HELP")
     @Getter
     @Setter
-    @NotNull
     private int summaryHelp;
 
     @Column(name = "HELP_FOR_LAST_MONTH")
     @Getter
     @Setter
-    @NotNull
     private int lastMonthHelp;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
