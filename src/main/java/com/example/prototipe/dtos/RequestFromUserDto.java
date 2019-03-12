@@ -59,4 +59,46 @@ public class RequestFromUserDto {
     @Setter
     @NotNull
     private Date timeOfRequesting;
+
+    @Getter
+    @Setter
+    @NotNull
+    private Long userId;
+
+    @Getter
+    @Setter
+    private KeyDto key;
+
+    @Getter
+    @Setter
+    private UsersDto user;
+
+    public RequestFromUserDto(Long requestId, Long userId, Date timeOfRequesting,
+                              byte[] file, byte[] proof,
+                              StatusOfRequest statusOfRequest,
+                              ReasonOfRequesting reasonOfRequesting, KeyDto key,
+                              UsersDto user){
+        this.requestId = requestId;
+        this.userId = userId;
+        this.timeOfRequesting = timeOfRequesting;
+        this.file = file;
+        this.proof = proof;
+        this.reasonOfRequestingCode = reasonOfRequesting.getValue();
+        this.statusOfRequestCode = statusOfRequest.getValue();
+        this.key = key;
+        this.user = user;
+    }
+
+    public RequestFromUserDto(Long requestId, Date timeOfRequesting,
+                              StatusOfRequest statusOfRequest,
+                              ReasonOfRequesting reasonOfRequesting, KeyDto key,
+                              UsersDto user){
+        this.requestId = requestId;
+        this.timeOfRequesting = timeOfRequesting;
+        this.reasonOfRequestingCode = reasonOfRequesting.getValue();
+        this.statusOfRequestCode = statusOfRequest.getValue();
+        this.key = key;
+        this.user = user;
+    }
+
 }

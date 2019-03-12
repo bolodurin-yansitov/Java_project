@@ -56,8 +56,6 @@ public class UsersDto {
     @Setter
     private int lastMonthHelp;
 
-
-
     public UsersDto(Long id, Role role, String fname, String sname,
                     String group_num, int faculNum, int courseNum,
                     int summaryHelp, int lastMonthHelp, String email){
