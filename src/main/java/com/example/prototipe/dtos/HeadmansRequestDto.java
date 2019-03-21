@@ -43,7 +43,4 @@ public class HeadmansRequestDto {
         this.timeOfRequest = timeOfRequest;
         this.headman = user;
     }
-
-
-
 }

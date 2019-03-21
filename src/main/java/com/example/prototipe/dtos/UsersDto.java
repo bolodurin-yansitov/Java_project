@@ -38,7 +38,7 @@ public class UsersDto {
 
     @Getter
     @Setter
-    private String group_num;
+    private String groupNum;
 
     @Getter
     @Setter
@@ -57,17 +57,30 @@ public class UsersDto {
     private int lastMonthHelp;
 
     public UsersDto(Long id, Role role, String fname, String sname,
-                    String group_num, int faculNum, int courseNum,
+                    String groupNum, int faculNum, int courseNum,
                     int summaryHelp, int lastMonthHelp, String email){
         this.id = id;
         this.roleCode = role.getValue();
         this.fname = fname;
         this.sname = sname;
-        this.group_num = group_num;
+        this.groupNum = groupNum;
         this.faculNum = faculNum;
         this.courseNum = courseNum;
         this.summaryHelp = summaryHelp;
         this.lastMonthHelp = lastMonthHelp;
+        this.email = email;
+    }
+
+    public UsersDto(Long id, Role role, String fname, String sname,
+                    String group_num, int faculNum, int courseNum,
+                    String email){
+        this.id = id;
+        this.roleCode = role.getValue();
+        this.fname = fname;
+        this.sname = sname;
+        this.groupNum = group_num;
+        this.faculNum = faculNum;
+        this.courseNum = courseNum;
         this.email = email;
     }
 

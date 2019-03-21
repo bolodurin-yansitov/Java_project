@@ -47,7 +47,7 @@ public class Users {
     @Getter
     @Setter
     @NotNull
-    private String group_num;
+    private String groupNum;
 
     @Column(name = "PASSWORD_HASH")
     @Getter
