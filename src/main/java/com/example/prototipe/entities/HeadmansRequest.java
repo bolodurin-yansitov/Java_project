@@ -39,7 +39,7 @@ public class HeadmansRequest {
     @JoinColumn(name = "HEADMAN_ID", insertable = false, updatable = false)
     @Getter
     @Setter
-    private Users user;
+    private Users headman;
 
     @Column(name = "TIME_OF_REQUESTING")
     @Getter

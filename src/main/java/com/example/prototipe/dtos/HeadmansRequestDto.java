@@ -14,7 +14,6 @@ import java.util.Date;
 public class HeadmansRequestDto {
     @Getter
     @Setter
-    @NotNull
     private Long requestId;
 
     @Getter
@@ -32,7 +31,7 @@ public class HeadmansRequestDto {
 
     @Getter
     @Setter
-    private UsersDto headman;
+    private UsersDto headmanDto;
 
     public HeadmansRequestDto(Long requestId, byte[] file,
                               Long headmanId, Date timeOfRequest,
@@ -41,6 +40,14 @@ public class HeadmansRequestDto {
         this.file = file;
         this.headmanId = headmanId;
         this.timeOfRequest = timeOfRequest;
-        this.headman = user;
+        this.headmanDto = user;
+    }
+
+    public HeadmansRequestDto(Long requestId, Long headmanId,
+                              Date timeOfRequest, UsersDto user){
+        this.requestId = requestId;
+        this.headmanId = headmanId;
+        this.timeOfRequest = timeOfRequest;
+        this.headmanDto = user;
     }
 }

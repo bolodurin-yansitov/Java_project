@@ -28,7 +28,6 @@ public class TimeOfRequesting {
     @Column(name = "HEADMAN_ID")
     @Getter
     @Setter
-    @NotNull
     private Long headmanId;
 
     @OneToOne(fetch = FetchType.LAZY)

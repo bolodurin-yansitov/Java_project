@@ -17,13 +17,13 @@ public class Key {
     @Getter
     @Setter
     @NotNull
-    private Long close_key;
+    private Long closeKey;
 
     @Column(name = "OPEN_KEY")
     @Getter
     @Setter
     @NotNull
-    private Long open_key;
+    private Long openKey;
 
     @Column(name = "USER_ID")
     @Getter

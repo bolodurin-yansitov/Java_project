@@ -1,5 +1,6 @@
 package com.example.prototipe.dtos;
 
+import com.example.prototipe.entities.Users;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
@@ -25,6 +26,10 @@ public class TimeOfRequestingDto {
     @Setter
     private Long headmanId;
 
+    @Getter
+    @Setter
+    private UsersDto headmanCreator;
+
     public TimeOfRequestingDto(Date startOfSubmission, Date endOfSubmission,
                                Long headmanId){
         this.startOfSubmission = startOfSubmission;
@@ -32,4 +37,10 @@ public class TimeOfRequestingDto {
         this.headmanId = headmanId;
     }
 
+    public TimeOfRequestingDto(Date startOfSubmission, Date endOfSubmission,
+                               UsersDto headmanCreator){
+        this.startOfSubmission = startOfSubmission;
+        this.endOfSubmission = endOfSubmission;
+        this.headmanCreator = headmanCreator;
+    }
 }

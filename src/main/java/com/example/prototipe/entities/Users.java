@@ -107,7 +107,7 @@ public class Users {
     @Setter
     private int lastMonthHelp;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "headman")
     @Getter
     @Setter
     private List<HeadmansRequest> requests;

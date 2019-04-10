@@ -14,7 +14,6 @@ import java.util.Date;
 public class KeyDto {
     @Getter
     @Setter
-    @NotNull
     private Long openKey;
 
     @Getter
@@ -24,12 +23,10 @@ public class KeyDto {
 
     @Getter
     @Setter
-    @NotNull
     private Date creatingTime;
 
     @Getter
     @Setter
-    @NotNull
     private Date deletingTime;
 
     public KeyDto(Long openKey, Long userId,

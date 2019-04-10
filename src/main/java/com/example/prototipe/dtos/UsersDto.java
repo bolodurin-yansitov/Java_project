@@ -16,7 +16,6 @@ import javax.validation.constraints.NotNull;
 public class UsersDto {
     @Getter
     @Setter
-    @NotNull
     private Long id;
 
     @Getter
@@ -79,6 +78,18 @@ public class UsersDto {
         this.fname = fname;
         this.sname = sname;
         this.groupNum = group_num;
+        this.faculNum = faculNum;
+        this.courseNum = courseNum;
+        this.email = email;
+    }
+
+    public UsersDto(Long id, Role role, String fname, String sname,
+                    int faculNum, int courseNum,
+                    String email){
+        this.id = id;
+        this.roleCode = role.getValue();
+        this.fname = fname;
+        this.sname = sname;
         this.faculNum = faculNum;
         this.courseNum = courseNum;
         this.email = email;

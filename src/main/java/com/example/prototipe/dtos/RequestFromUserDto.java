@@ -16,7 +16,6 @@ import java.util.Date;
 public class RequestFromUserDto {
     @Getter
     @Setter
-    @NotNull
     private Long requestId;
 
     @Getter
