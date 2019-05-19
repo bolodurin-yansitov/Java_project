@@ -4,13 +4,13 @@ CREATE TABLE IF NOT EXISTS users(
   fname VARCHAR(100) NOT NULL,
   sname VARCHAR(100) NOT NULL,
   group_num VARCHAR(10),
-  password_hash VARCHAR(255) NOT NULL,
-  password_salt VARCHAR(32) NOT NULL,
+  password_hash BYTEA NOT NULL,
+  password_salt BYTEA NOT NULL,
   role INT NOT NULL,
   course_num INT NOT NULL,
   facul_num INT NOT NULL,
-  start_ban DATE DEFAULT NULL,
-  end_ban DATE DEFAULT NULL,
+  start_ban TIMESTAMP DEFAULT NULL,
+  end_ban TIMESTAMP DEFAULT NULL,
   summary_help INT DEFAULT NULL,
   help_for_last_month INT DEFAULT NULL
 );
@@ -37,12 +37,12 @@ COMMENT ON SEQUENCE user_id_sequence IS 'Sequence for identifiers if table ''use
 
 
 CREATE TABLE IF NOT EXISTS key(
-  close_key BIGINT PRIMARY KEY,
-  open_key BIGINT UNIQUE NOT NULL,
+  close_key BYTEA PRIMARY KEY,
+  open_key BYTEA UNIQUE NOT NULL,
   --FOREIGN KEY
   user_id BIGINT REFERENCES users(id) ON DELETE CASCADE,
-  creating_time DATE,
-  deleting_time DATE
+  creating_time TIMESTAMP,
+  deleting_time TIMESTAMP
 );
 
 COMMENT ON TABLE key IS 'Table containing key''s data';
@@ -58,12 +58,12 @@ CREATE TABLE IF NOT EXISTS request_from_user(
   request_id BIGINT PRIMARY KEY,
   file BYTEA NOT NULL,
   proof BYTEA NOT NULL,
-  hash_file VARCHAR(100) NOT NULL,
-  sign_hash VARCHAR(100) NOT NULL,
+  /*hash_file VARCHAR(100) NOT NULL,
+  sign_hash VARCHAR(100) NOT NULL,*/
   close_key BIGINT  REFERENCES key(close_key),
   status_of_request INT NOT NULL,
   reason_of_request INT NOT NULL,
-  time_of_requesting DATE NOT NULL
+  time_of_requesting TIMESTAMP NOT NULL
 );
 
 CREATE SEQUENCE IF NOT EXISTS request_from_user_id_sequence START WITH 1 MINVALUE 1 INCREMENT BY 1;
@@ -76,14 +76,14 @@ COMMENT ON COLUMN request_from_user.proof IS 'File, which confirm document';
 COMMENT ON COLUMN request_from_user.hash_file IS 'Hash of received file';
 COMMENT ON COLUMN request_from_user.sign_hash IS 'Signed received hash of file';
 COMMENT ON COLUMN request_from_user.close_key IS 'Close key, which signed file';
-COMMENT ON COLUMN request_from_user.status_of_accept IS 'Status of accepting request';
+COMMENT ON COLUMN request_from_user.status_of_request IS 'Status of accepting request';
 COMMENT ON COLUMN request_from_user.reason_of_request IS 'One of the most popular reason for helping';
 
 
 
 CREATE TABLE IF NOT EXISTS time_of_requesting(
-  start_of_submission DATE NOT NULL PRIMARY KEY,
-  end_of_submission DATE NOT NULL,
+  start_of_submission TIMESTAMP NOT NULL PRIMARY KEY,
+  end_of_submission TIMESTAMP NOT NULL,
   headman_id BIGINT REFERENCES users(id) ON DELETE CASCADE
 );
 
@@ -98,7 +98,7 @@ CREATE TABLE IF NOT EXISTS headmans_request(
   request_id BIGINT PRIMARY KEY,
   file BYTEA NOT NULL,
   headman_id BIGINT REFERENCES users(id),
-  time_of_requesting DATE NOT NULL
+  time_of_requesting TIMESTAMP NOT NULL
 );
 
 CREATE SEQUENCE IF NOT EXISTS headmans_request_id_sequence START WITH 1 MINVALUE 1 INCREMENT BY 1;

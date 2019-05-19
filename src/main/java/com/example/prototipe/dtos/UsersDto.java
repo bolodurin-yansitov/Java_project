@@ -25,6 +25,10 @@ public class UsersDto {
 
     @Getter
     @Setter
+    private String password;
+
+    @Getter
+    @Setter
     private String fname;
 
     @Getter
@@ -54,6 +58,22 @@ public class UsersDto {
     @Getter
     @Setter
     private int lastMonthHelp;
+
+    public UsersDto(Long id, Role role, String password, String fname,
+                    String sname, String groupNum, int faculNum, int courseNum,
+                    int summaryHelp, int lastMonthHelp, String email){
+        this.id = id;
+        this.roleCode = role.getValue();
+        this.password = password;
+        this.fname = fname;
+        this.sname = sname;
+        this.groupNum = groupNum;
+        this.faculNum = faculNum;
+        this.courseNum = courseNum;
+        this.summaryHelp = summaryHelp;
+        this.lastMonthHelp = lastMonthHelp;
+        this.email = email;
+    }
 
     public UsersDto(Long id, Role role, String fname, String sname,
                     String groupNum, int faculNum, int courseNum,

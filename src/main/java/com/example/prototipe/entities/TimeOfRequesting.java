@@ -6,7 +6,7 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "TIME_OF_REQUESTING")
@@ -17,13 +17,13 @@ public class TimeOfRequesting {
     @Getter
     @Setter
     @NotNull
-    private Date startOfSubmission;
+    private LocalDateTime startOfSubmission;
 
     @Column(name = "END_OF_SUBMISSION")
     @Getter
     @Setter
     @NotNull
-    private Date endOfSubmission;
+    private LocalDateTime endOfSubmission;
 
     @Column(name = "HEADMAN_ID")
     @Getter

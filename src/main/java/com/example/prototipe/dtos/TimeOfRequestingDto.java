@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
 import javax.validation.constraints.NotNull;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @NoArgsConstructor
@@ -15,12 +15,12 @@ public class TimeOfRequestingDto {
     @Getter
     @Setter
     @NotNull
-    private Date startOfSubmission;
+    private LocalDateTime startOfSubmission;
 
     @Getter
     @Setter
     @NotNull
-    private Date endOfSubmission;
+    private LocalDateTime endOfSubmission;
 
     @Getter
     @Setter
@@ -30,14 +30,16 @@ public class TimeOfRequestingDto {
     @Setter
     private UsersDto headmanCreator;
 
-    public TimeOfRequestingDto(Date startOfSubmission, Date endOfSubmission,
+    public TimeOfRequestingDto(LocalDateTime startOfSubmission,
+                               LocalDateTime endOfSubmission,
                                Long headmanId){
         this.startOfSubmission = startOfSubmission;
         this.endOfSubmission = endOfSubmission;
         this.headmanId = headmanId;
     }
 
-    public TimeOfRequestingDto(Date startOfSubmission, Date endOfSubmission,
+    public TimeOfRequestingDto(LocalDateTime startOfSubmission,
+                               LocalDateTime endOfSubmission,
                                UsersDto headmanCreator){
         this.startOfSubmission = startOfSubmission;
         this.endOfSubmission = endOfSubmission;

@@ -6,7 +6,7 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "KEY")
@@ -17,13 +17,13 @@ public class Key {
     @Getter
     @Setter
     @NotNull
-    private Long closeKey;
+    private byte[] closeKey;
 
     @Column(name = "OPEN_KEY")
     @Getter
     @Setter
     @NotNull
-    private Long openKey;
+    private byte[] openKey;
 
     @Column(name = "USER_ID")
     @Getter
@@ -40,15 +40,24 @@ public class Key {
     @Column(name = "CREATING_TIME")
     @Getter
     @Setter
-    private Date creatingTime;
+    private LocalDateTime creatingTime;
 
     @Column(name = "DELETING_TIME")
     @Getter
     @Setter
-    private Date deletingTime;
+    private LocalDateTime deletingTime;
 
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "key")
     @Getter
     @Setter
     private RequestFromUser requestFromUser;
+
+    public Key(byte[] openKey, byte[] closeKey, Long userId,
+               LocalDateTime creatingTime, LocalDateTime deletingTime){
+        this.openKey = openKey;
+        this.closeKey = closeKey;
+        this.userId = userId;
+        this.creatingTime = creatingTime;
+        this.deletingTime = deletingTime;
+    }
 }

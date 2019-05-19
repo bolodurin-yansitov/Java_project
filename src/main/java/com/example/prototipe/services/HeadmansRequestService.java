@@ -9,7 +9,9 @@ import com.example.prototipe.entities.Users;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import static com.example.prototipe.common.utils.ValidationUtils.validateIsNull;
+import java.time.LocalDateTime;
+
+import static com.example.prototipe.common.utils.ValidationUtils.*;
 
 @Service
 @RequiredArgsConstructor
@@ -56,5 +58,25 @@ public class HeadmansRequestService {
                 "headman id " + headmansRequest.getHeadmanId());
 
         return buildHeadmansRequestDtoFromHeadmansRequest(headmansRequest);
+    }
+
+    public void createHeadmansRequest(HeadmansRequestDto headmansRequestDto)
+            throws ValidationException{
+
+        validateIsNull(headmansRequestDto, "Headman's request dto " +
+                "is not provide");
+        validateIsNotNull(headmansRequestDto.getRequestId(), "Can not " +
+                "create headman's request with existing request id");
+
+        HeadmansRequest headmansRequest = buildHeadmansRequestFromHRDto(
+                headmansRequestDto);
+
+        headmansRequestDao.save(headmansRequest);
+    }
+
+    private HeadmansRequest buildHeadmansRequestFromHRDto(
+            HeadmansRequestDto headmansRequestDto) {
+        return new HeadmansRequest(null, headmansRequestDto.getHeadmanId(),
+                headmansRequestDto.getFile(), LocalDateTime.now());
     }
 }

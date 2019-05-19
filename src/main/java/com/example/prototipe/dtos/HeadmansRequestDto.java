@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
 import javax.validation.constraints.NotNull;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -18,6 +18,7 @@ public class HeadmansRequestDto {
 
     @Getter
     @Setter
+    @NotNull
     byte[] file;
 
     @Getter
@@ -27,14 +28,14 @@ public class HeadmansRequestDto {
 
     @Getter
     @Setter
-    private Date timeOfRequest;
+    private LocalDateTime timeOfRequest;
 
     @Getter
     @Setter
     private UsersDto headmanDto;
 
     public HeadmansRequestDto(Long requestId, byte[] file,
-                              Long headmanId, Date timeOfRequest,
+                              Long headmanId, LocalDateTime timeOfRequest,
                               UsersDto user){
         this.requestId = requestId;
         this.file = file;
@@ -44,7 +45,7 @@ public class HeadmansRequestDto {
     }
 
     public HeadmansRequestDto(Long requestId, Long headmanId,
-                              Date timeOfRequest, UsersDto user){
+                              LocalDateTime timeOfRequest, UsersDto user){
         this.requestId = requestId;
         this.headmanId = headmanId;
         this.timeOfRequest = timeOfRequest;

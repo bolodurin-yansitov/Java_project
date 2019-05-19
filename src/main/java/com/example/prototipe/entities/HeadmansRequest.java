@@ -6,12 +6,10 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
-
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "HEADMANS_REQUEST")
-@ToString(exclude = "user")
 public class HeadmansRequest {
     @Id
     @Column(name = "REQUEST_ID")
@@ -45,11 +43,19 @@ public class HeadmansRequest {
     @Getter
     @Setter
     @NotNull
-    private Date timeOfRequesting;
+    private LocalDateTime timeOfRequesting;
 
     @ManyToOne(fetch = FetchType.LAZY,
             cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @Getter
     @Setter
     private Users chairman;
+
+    public HeadmansRequest(Long requestId, Long headmanId, byte[] file,
+                           LocalDateTime timeOfRequesting){
+        this.requestId = requestId;
+        this.headmanId = headmanId;
+        this.file = file;
+        this.timeOfRequesting = timeOfRequesting;
+    }
 }

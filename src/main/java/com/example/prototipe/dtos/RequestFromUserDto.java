@@ -7,7 +7,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
 import javax.validation.constraints.NotNull;
-import java.util.Date;
+import java.time.LocalDateTime;
+
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @NoArgsConstructor
@@ -20,10 +21,17 @@ public class RequestFromUserDto {
 
     @Getter
     @Setter
+    @NotNull
     private byte[] file;
 
     @Getter
     @Setter
+    @NotNull
+    private byte[] signFile;
+
+    @Getter
+    @Setter
+    @NotNull
     private byte[] proof;
 
     @Getter
@@ -57,7 +65,7 @@ public class RequestFromUserDto {
     @Getter
     @Setter
     @NotNull
-    private Date timeOfRequesting;
+    private LocalDateTime timeOfRequesting;
 
     @Getter
     @Setter
@@ -72,7 +80,7 @@ public class RequestFromUserDto {
     @Setter
     private UsersDto user;
 
-    public RequestFromUserDto(Long requestId, Long userId, Date timeOfRequesting,
+    public RequestFromUserDto(Long requestId, Long userId, LocalDateTime timeOfRequesting,
                               byte[] file, byte[] proof,
                               StatusOfRequest statusOfRequest,
                               ReasonOfRequesting reasonOfRequesting, KeyDto key,
@@ -88,7 +96,7 @@ public class RequestFromUserDto {
         this.user = user;
     }
 
-    public RequestFromUserDto(Long requestId, Date timeOfRequesting,
+    public RequestFromUserDto(Long requestId, LocalDateTime timeOfRequesting,
                               StatusOfRequest statusOfRequest,
                               ReasonOfRequesting reasonOfRequesting, KeyDto key,
                               UsersDto user){
@@ -100,4 +108,12 @@ public class RequestFromUserDto {
         this.user = user;
     }
 
+    public RequestFromUserDto(Long requestId, LocalDateTime timeOfRequesting,
+                              StatusOfRequest statusOfRequest,
+                              ReasonOfRequesting reasonOfRequesting){
+        this.requestId = requestId;
+        this.timeOfRequesting = timeOfRequesting;
+        this.reasonOfRequestingCode = reasonOfRequesting.getValue();
+        this.statusOfRequestCode = statusOfRequest.getValue();
+    }
 }

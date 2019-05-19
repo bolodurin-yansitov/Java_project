@@ -1,5 +1,6 @@
 package com.example.prototipe.entities;
 
+import com.example.prototipe.common.Password;
 import com.example.prototipe.entities.enums.Role;
 import lombok.Getter;
 import lombok.Setter;
@@ -7,9 +8,8 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
 import java.util.List;
-
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "USERS")
@@ -53,13 +53,13 @@ public class Users {
     @Getter
     @Setter
     @NotNull
-    private String password_hash;
+    private byte[] password_hash;
 
     @Column(name = "PASSWORD_SALT")
     @Getter
     @Setter
     @NotNull
-    private String password_salt;
+    private byte[] password_salt;
 
     //Else properties of user
     @Column(name = "ROLE")
@@ -89,13 +89,13 @@ public class Users {
     @Getter
     @Setter
     @NotNull
-    private Date startBan;
+    private LocalDateTime startBan;
 
     @Column(name = "END_BAN")
     @Getter
     @Setter
     @NotNull
-    private Date endBan;
+    private LocalDateTime endBan;
 
     @Column(name = "SUMMARY_HELP")
     @Getter
@@ -146,4 +146,30 @@ public class Users {
     @Setter
     private List<HeadmansRequest> chairmanRequest;
 
+    public Users(String email, String fname, String sname, String groupNum,
+                 int courseNum, int faculNum, Role role){
+        this.email = email;
+        this.fname = fname;
+        this.sname = sname;
+        this.groupNum = groupNum;
+        this.courseNum = courseNum;
+        this.faculNum = faculNum;
+        this.role = role.getValue();
+    }
+
+    public Users(String email, String password, String fname, String sname, String groupNum,
+                 int courseNum, int faculNum, Role role){
+        this.email = email;
+        this.fname = fname;
+        this.sname = sname;
+        this.groupNum = groupNum;
+        this.courseNum = courseNum;
+        this.faculNum = faculNum;
+        this.role = role.getValue();
+
+        byte[] salt = Password.getNextSalt();
+        this.password_salt = salt;
+
+        this.password_hash = Password.hash(password.toCharArray(), salt);
+    }
 }

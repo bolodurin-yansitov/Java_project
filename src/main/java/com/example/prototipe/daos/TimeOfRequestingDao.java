@@ -7,11 +7,11 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Repository
 public interface TimeOfRequestingDao
-        extends CrudRepository<TimeOfRequesting, Date> {
+        extends CrudRepository<TimeOfRequesting, LocalDateTime> {
     @Query("SELECT time_of_requesting FROM TimeOfRequesting time_of_requesting " +
             "WHERE time_of_requesting.headmanId = :headmanId")
     TimeOfRequesting findTimeOfRequestingByHeadmanId(
@@ -20,6 +20,7 @@ public interface TimeOfRequestingDao
     @Query("SELECT headman FROM Users headman WHERE headman.role = 2 OR " +
             "headman.role = 3 AND " +
             "headman.courseNum = (SELECT user.courseNum FROM Users user " +
-            "WHERE user.id = :userId)")
+            "WHERE user.id = :userId) AND headman.faculNum = (SELECT " +
+            "user.faculNum FROM Users user WHERE user.id = :userId)")
     Users findHeadmanOfUserByUserId(@Param("userId") Long userId);
 }

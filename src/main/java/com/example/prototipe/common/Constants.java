@@ -5,5 +5,5 @@ public class Constants {
     public static final String NO_SUCH_REASON = "Can not find a reason " +
             "of requesting for code";
     public static final String NO_SUCH_STATUS = "Can not find a status" +
-            "of requesting fro code";
+            "of requesting for code";
 }

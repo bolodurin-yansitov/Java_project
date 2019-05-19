@@ -9,8 +9,7 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
-
+import java.time.LocalDateTime;
 @Entity
 @Table(name = "REQUEST_FROM_USER")
 @ToString(exclude = {"key", "user", "headman"})
@@ -37,7 +36,7 @@ public class RequestFromUser {
     @NotNull
     private byte[] proof;
 
-    @Column(name = "HASH_FILE")
+    /*@Column(name = "HASH_FILE")
     @Getter
     @Setter
     @NotNull
@@ -47,13 +46,13 @@ public class RequestFromUser {
     @Getter
     @Setter
     @NotNull
-    private String signHash;
+    private String signHash;*/
 
     @Column(name = "CLOSE_KEY")
     @Getter
     @Setter
     @NotNull
-    private int closeKey;
+    private byte[] closeKey;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CLOSE_KEY", insertable = false, updatable = false)
@@ -86,7 +85,7 @@ public class RequestFromUser {
     @Column(name = "TIME_OF_REQUESTING")
     @Getter
     @Setter
-    private Date timeOfRequesting;
+    private LocalDateTime timeOfRequesting;
 
     @ManyToOne(fetch = FetchType.LAZY,
             cascade = {CascadeType.PERSIST, CascadeType.MERGE})
@@ -99,4 +98,18 @@ public class RequestFromUser {
     @Getter
     @Setter
     private Users headman;
+
+    public RequestFromUser(Long requestId, byte[] file,
+                           byte[] proof, short statusOfRequest,
+                           short reasonOfRequesting,
+                           LocalDateTime timeOfRequesting){
+        this.requestId = requestId;
+        this.file = file;
+        this.proof = proof;
+        this.statusOfRequest = statusOfRequest;
+        this.reasonOfRequesting = reasonOfRequesting;
+        this.timeOfRequesting = timeOfRequesting;
+    }
+
+    public RequestFromUser(){}
 }

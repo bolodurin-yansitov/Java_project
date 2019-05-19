@@ -10,12 +10,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 
-import static com.example.prototipe.common.utils.ValidationUtils.validateIsNull;
+import static com.example.prototipe.common.utils.ValidationUtils.*;
 
 @Service
 @RequiredArgsConstructor
 public class UsersService {
-    private static final Logger log = LoggerFactory.getLogger(UsersService.class);
+    private static final Logger log = LoggerFactory.getLogger(
+            UsersService.class);
 
     private final UsersDao usersDao;
 
@@ -38,12 +39,46 @@ public class UsersService {
         return usersDto;
     }
 
-    public UsersDto getUserByEmail(String userEmail) throws ValidationException {
+    public UsersDto getUserByEmail(String userEmail)
+            throws ValidationException {
         validateIsNull(userEmail, "User email is not provide");
 
         Users user = this.usersDao.findByEmail(userEmail);
         validateIsNull(user, "No user with such email " + userEmail);
 
         return buildUsersDtoFromUser(user);
+    }
+
+    public Users createUser(UsersDto usersDto) throws ValidationException{
+        validateIsNull(usersDto, "User DTO is not provide");
+        validateIsNotNull(usersDto.getId(), "Can not create user with");
+
+        validateIsNull(usersDto.getEmail(), "Email of user is not provide");
+        validateIsNull(usersDto.getFname(), "First name of user is not provide");
+        validateIsNull(usersDto.getSname(), "Second name of user is not provide");
+        validateIsNull(usersDto.getGroupNum(), "Group number of user " +
+                "is not provide");
+        validateIsNull(usersDto.getCourseNum(), "Course number of user " +
+                "is not provide");
+        validateIsNull(usersDto.getFaculNum(), "Faculty number of user " +
+                "is not provide");
+        validateIsNull(usersDto.getRole(), "Role of user is not provide");
+
+        if(usersDao.findByEmail(usersDto.getEmail()) == null)
+        {
+            Users user = buildUserFromUserDto(usersDto);
+            this.usersDao.save(user);
+            return user;
+        }
+        else
+            return null;
+    }
+
+    private Users buildUserFromUserDto(UsersDto usersDto){
+        return new Users(
+                usersDto.getEmail(), usersDto.getPassword(), usersDto.getFname(),
+                usersDto.getSname(), usersDto.getGroupNum(),
+                usersDto.getCourseNum(), usersDto.getFaculNum(),
+                usersDto.getRole());
     }
 }

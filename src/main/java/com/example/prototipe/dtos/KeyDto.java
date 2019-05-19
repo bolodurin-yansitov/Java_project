@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
 import javax.validation.constraints.NotNull;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -14,7 +14,7 @@ import java.util.Date;
 public class KeyDto {
     @Getter
     @Setter
-    private Long openKey;
+    private byte[] openKey;
 
     @Getter
     @Setter
@@ -23,14 +23,14 @@ public class KeyDto {
 
     @Getter
     @Setter
-    private Date creatingTime;
+    private LocalDateTime creatingTime;
 
     @Getter
     @Setter
-    private Date deletingTime;
+    private LocalDateTime deletingTime;
 
-    public KeyDto(Long openKey, Long userId,
-                  Date creatingTime, Date deletingTime){
+    public KeyDto(byte[] openKey, Long userId,
+                  LocalDateTime creatingTime, LocalDateTime deletingTime){
         this.openKey = openKey;
         this.userId = userId;
         this.creatingTime = creatingTime;

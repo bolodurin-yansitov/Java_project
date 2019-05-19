@@ -14,4 +14,6 @@ public interface HeadmansRequestDao
     @Query("SELECT headman_request FROM HeadmansRequest headman_request " +
             "WHERE headman_request.headmanId = :headmanId")
     HeadmansRequest findHeadmansRequestByHeadmanId(@Param("headmanId") Long headmanId);
+
+
 }
